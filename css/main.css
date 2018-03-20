@@ -1,0 +1,14 @@
+/* ----> Fonts <---- */
+
+@font-face {
+    font-family: "Coda";
+    src: url(font/Coda_Caption/CodaCaption-ExtraBold.ttf);
+}
+
+/* ----> Global <---- */
+
+* {
+    box-sizing: border-box;
+    font-weight: bold;
+    margin: 0;
+}
