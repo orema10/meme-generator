@@ -63,6 +63,12 @@ header {
     background: #ffffff;
 }
 
+.canvas {
+    width: 100%;
+    height: 330px;
+    background-color: #54b32e; 
+}
+
 .devs-team {
     width: 100%;
     height: 330px;
