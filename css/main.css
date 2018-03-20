@@ -2,13 +2,81 @@
 
 @font-face {
     font-family: "Coda";
-    src: url(font/Coda_Caption/CodaCaption-ExtraBold.ttf);
+    src: url(../font/Coda_Caption/CodaCaption-ExtraBold.ttf);
 }
+
+@font-face {
+    font-family: "Lato";
+    src: url(../font/Lato/Lato-Regular.ttf), url(../font/Lato/Lato-Black.ttf), url(../font/Lato/Lato-BlackItalic.ttf), url(../font/Lato/Lato-Bold.ttf), url(../font/Lato/Lato-BoldItalic.ttf), url(../font/Lato/Lato-BoldItalic.ttf), url(../font/Lato/Lato-Hairline.ttf), url(../font/Lato/Lato-HairlineItalic.ttf), url(../font/Lato/Lato-Italic.ttf);
+}
+
 
 /* ----> Global <---- */
 
 * {
     box-sizing: border-box;
-    font-weight: bold;
     margin: 0;
+}
+
+header {
+    width: 100%;
+    height: 65px;
+    background-color: #323232;
+    display: flex;
+    justify-content: center;
+}
+
+.main-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.main-menu li:not(:last-child) {
+    margin-right: 25px;
+}
+
+.main-menu  li a {
+    font-family: "Lato";
+    color: white;
+    text-decoration: none;
+}
+
+/* .container {
+    width: 940px;
+    margin: 0 auto;
+} */
+
+.clean-underline {
+    text-decoration: none;
+}
+
+.clean-list {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.gallery-items {
+    width: 100%;
+    height: 720px;
+    background: #ffffff;
+}
+
+.devs-team {
+    width: 100%;
+    height: 330px;
+    background-color: #2eb398;
+}
+
+.get-in-touch {
+    width: 100%;
+    height: 565px;
+    background-color: #323232;
+}
+
+footer {
+    width: 100%;
+    height: 45px;
+    background-color: #222222;
 }
