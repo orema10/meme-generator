@@ -4,9 +4,31 @@ console.log('Hello');
 var nextIdCount = 1;
 var currImg;
 
-var gImgs = [{ id: 1, url: 'img/popo.jpg', keywords: ['happy'] }];
+var gImgs = [
+    { id: 1, url: 'img/1.jpg', keywords: ['happy'] },
+    { id: 1, url: 'img/2.jpg', keywords: ['happy'] },
+    { id: 1, url: 'img/3.jpg', keywords: ['happy'] },
+    { id: 1, url: 'img/4.jpg', keywords: ['happy'] }];
 
 
+
+function init() {
+    renderGallery();
+}
+
+function renderGallery() {
+    var strHTML = `<div class="gallery-container">`;
+    gImgs.forEach(function(img) {
+            strHTML += `<div class="img-wrapper">
+                            <img onclick="saveImage(this)" src="${img.url}"/>
+                        </div>`
+    });
+
+    strHTML += `</div>`
+
+    var elGalleryContainer = document.querySelector('.gallery-items');
+    elGalleryContainer.innerHTML = strHTML;
+}
 
 function createImg(nextId, url, keywords) {
     return {
@@ -22,11 +44,11 @@ function saveImage(el) {
 }
 
 function openCanvas() {
-    var elGalleryItem = document.querySelector('.gallery-items');
+    var elGalleryItem = document.querySelector('.gallery-container');
     // elGalleryItem.style.transform = 'scale(0)';
     elGalleryItem.style.display='none';
-    var elGalleryContainer = document.querySelector('.gallery-container');
-    elGalleryContainer.innerHTML += `
+    var elGalleryContainer = document.querySelector('.gallery-items');
+    elGalleryContainer.innerHTML = `
     <section class="gallery-canvas">
         <canvas class="canvas"></canvas>
 

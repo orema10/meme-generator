@@ -57,14 +57,14 @@ header {
     padding: 0;
 }
 
-.gallery-container {
+.gallery-items {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 25px 0;
 }
 
-.gallery-items {
+.gallery-container {
     margin: 0 auto;
     width: 80%;
     /* height: 720px; */
@@ -79,7 +79,7 @@ header {
     transition: transform .5s;
 }
 
-.gallery-items .img-wrapper {
+.gallery-container .img-wrapper {
     grid-area: span 3 /  span 3;
     overflow: hidden;
 }

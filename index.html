@@ -9,7 +9,7 @@
     <title>Meme generator</title>
 </head>
 
-<body>
+<body onload="init()">
     <header>
         <ul class="main-menu clean-list">
             <li>
@@ -31,26 +31,9 @@
     </header>
 
     <main>
-        <div class="gallery-container">
         <section class="gallery-items">
-            <div class="img-wrapper">
-                <img onclick="saveImage(this)" src="img/1.jpg"/>
-            </div>
 
-            <div class="img-wrapper">
-                    <img onclick="saveImage(this)" src="img/2.jpg"/>
-            </div>
-
-            <div class="img-wrapper">
-                    <img onclick="saveImage(this)" src="img/3.jpg"/>
-            </div>
-
-            <div class="img-wrapper">
-                    <img onclick="saveImage(this)" src="img/4.jpg"/>
-            </div>
         </section>
-
-        </div>
 
         <section class="devs-team">
 
