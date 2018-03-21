@@ -140,7 +140,7 @@ header {
 }
 
 .choose-img {
-    padding: 15px;
+  padding: 15px;
   display: flex;
   background: lightgray;
   font-size: 50px;
@@ -192,10 +192,6 @@ header {
 .tag {
   cursor: pointer;
   transition: all 0.4s;
-}
-
-.tag:hover {
-    
 }
 
 .devs-team {
@@ -305,74 +301,74 @@ footer {
 }
 
 .hexagon {
-    position: relative;
-    width: 220px; 
-    height: 127.02px;
-    margin: 63.51px 0;
-    background-image: url(http://csshexagon.com/img/meow.jpg);
-    background-size: auto 254.0341px;
-    background-position: center;
-    box-shadow: 0 0 20px rgba(0,0,0,1);
-  }
-  
-  .hexTop,
-  .hexBottom {
-    position: absolute;
-    z-index: 1;
-    width: 155.56px;
-    height: 155.56px;
-    overflow: hidden;
-    -webkit-transform: scaleY(0.5774) rotate(-45deg);
-    -ms-transform: scaleY(0.5774) rotate(-45deg);
-    transform: scaleY(0.5774) rotate(-45deg);
-    background: inherit;
-    left: 32.22px;
-    box-shadow: 0 0 20px rgba(0,0,0,1);
-  }
-  
-  /*counter transform the bg image on the caps*/
-  .hexTop:after,
-  .hexBottom:after {
-    content: "";
-    position: absolute;
-    width: 220.0000px;
-    height: 127.01705922171767px;
-    -webkit-transform:  rotate(45deg) scaleY(1.7321) translateY(-63.5085px);
-    -ms-transform:      rotate(45deg) scaleY(1.7321) translateY(-63.5085px);
-    transform:          rotate(45deg) scaleY(1.7321) translateY(-63.5085px);
-    -webkit-transform-origin: 0 0;
-    -ms-transform-origin: 0 0;
-    transform-origin: 0 0;
-    background: inherit;
-  }
-  
-  .hexTop {
-    top: -77.7817px;
-  }
-  
-  .hexTop:after {
-    background-position: center top;
-  }
-  
-  .hexBottom {
-    bottom: -77.7817px;
-  }
-  
-  .hexBottom:after {
-    background-position: center bottom;
-  }
-  
-  .hexagon:after {
-    content: "";
-    position: absolute;
-    top: 0.0000px;
-    left: 0;
-    width: 220.0000px;
-    height: 127.0171px;
-    z-index: 2;
-    background: inherit;
-  }
-  
+  position: relative;
+  width: 220px;
+  height: 127.02px;
+  margin: 63.51px 0;
+  background-image: url(http://csshexagon.com/img/meow.jpg);
+  background-size: auto 254.0341px;
+  background-position: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+}
+
+.hexTop,
+.hexBottom {
+  position: absolute;
+  z-index: 1;
+  width: 155.56px;
+  height: 155.56px;
+  overflow: hidden;
+  -webkit-transform: scaleY(0.5774) rotate(-45deg);
+  -ms-transform: scaleY(0.5774) rotate(-45deg);
+  transform: scaleY(0.5774) rotate(-45deg);
+  background: inherit;
+  left: 32.22px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 1);
+}
+
+/*counter transform the bg image on the caps*/
+.hexTop:after,
+.hexBottom:after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  height: 127.01705922171767px;
+  -webkit-transform: rotate(45deg) scaleY(1.7321) translateY(-63.5085px);
+  -ms-transform: rotate(45deg) scaleY(1.7321) translateY(-63.5085px);
+  transform: rotate(45deg) scaleY(1.7321) translateY(-63.5085px);
+  -webkit-transform-origin: 0 0;
+  -ms-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background: inherit;
+}
+
+.hexTop {
+  top: -77.7817px;
+}
+
+.hexTop:after {
+  background-position: center top;
+}
+
+.hexBottom {
+  bottom: -77.7817px;
+}
+
+.hexBottom:after {
+  background-position: center bottom;
+}
+
+.hexagon:after {
+  content: "";
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 220px;
+  height: 127.0171px;
+  z-index: 2;
+  background: inherit;
+}
+
 /* ----> Media <---- */
 
 @media (max-width: 1024px) {
