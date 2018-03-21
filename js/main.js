@@ -8,9 +8,13 @@ var gImgs = [{id: 1, url: 'img/popo.jpg', keywords: ['happy']}];
 
 
 function createImg (nextId,url,keywords) {
-return {
+
+var img = {
 id: nextId,
 url: url,
 keywords: keywords,
 }
+nextIdCount++;
+
+return img;
 }
