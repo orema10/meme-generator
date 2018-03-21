@@ -59,13 +59,14 @@
                     <input data-line="0" type="text" id="canvas-text1" oninput="changeInput(this)">
 
                     <select data-line="0" id="side" onchange="changeTxtSide(this)">
+                        <!-- <option disabled selected value > select an option  </option> -->
                         <option value="left">left</option>
                         <option value="center">center</option>
-                        <option value="right">right</option>
+                        <option value="right" selected>right</option>
                     </select>
                     <select data-line="0" id="font" onchange="changeFont(this)">
-                        <option value="Impact">Impact</option>
-                        <option value="Arial">Arial</option>
+                        <option value="Impact" >Impact</option>
+                        <option value="Arial" >Arial</option>
                         <option value="David">David</option>
                     </select>
 
@@ -84,7 +85,8 @@
                     <button data-line="0" class "" onclick="">remove</button>
                     <button class "" onclick="">text shadow</button>
                     <button data-line="0" class="clear-btn add-line-btn" onclick="handleLine(0)">Add-Line</button>
-                    <button class="clear-btn down-btn" onclick="startDown(this)">Save</button>
+                    <!-- <button class="clear-btn down-btn" onclick="startDown(this)">Save</button> -->
+                    <a href="#" class="down-btn" id="btn-download" onclick="downloadImage(this)" download="My-Meme.png">Download</a>
                 </div>
                 <!-- <div class="line2">
                     <input type="text" id="canvas-text2">

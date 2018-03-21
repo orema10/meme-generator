@@ -87,6 +87,9 @@ header {
 }
 
 .down-btn {
+  width: 100px;
+  text-decoration: none;
+  color:black;
   display: block;
   padding: 10px;
   border: 2px solid #c2c2c2;

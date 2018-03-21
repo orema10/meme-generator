@@ -242,3 +242,10 @@ function detailsRender() {
     }
   });
 }
+
+
+function downloadImage(el) {
+  var canvas = document.querySelector('.canvas');
+  var dataURL = canvas.toDataURL('image/png');
+  el.href = dataURL;
+}
