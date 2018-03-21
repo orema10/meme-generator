@@ -3,7 +3,20 @@ function runSearch(elInput) {
     var input = elInput.value;
     var imgToSerch = gImgs.filter(function(img) {
         var isValid = img.keywords.some(function(keyword) {
-            return keyword.includes(input);
+            return keyword.toLowerCase().includes(input.toLowerCase());
+        });
+
+        return isValid;
+    });
+
+    renderGallery(imgToSerch);
+}
+
+function checkWords(word) {
+    var input = word.toString();
+    var imgToSerch = gImgs.filter(function(img) {
+        var isValid = img.keywords.some(function(keyword) {
+            return keyword.toLowerCase().includes(input.toLowerCase());
         });
 
         return isValid;

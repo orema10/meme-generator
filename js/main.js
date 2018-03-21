@@ -5,9 +5,41 @@ var currImg;
 var ctx;
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['face', 'cartton'] },
-    { id: 1, url: 'img/2.jpg', keywords: ['man'] },
-    { id: 1, url: 'img/3.jpg', keywords: ['man','lklk'] },
-    { id: 1, url: 'img/4.jpg', keywords: ['soccer', 'man'] }];
+    { id: 2, url: 'img/2.jpg', keywords: ['Girl','money'] },
+    { id: 3, url: 'img/3.jpg', keywords: ['cartton','table','angry'] },
+    { id: 4, url: 'img/4.jpg', keywords: ['girl', 'baby'] },
+    { id: 5, url: 'img/5.jpg', keywords: ['girl', 'fat','what'] },
+    { id: 6, url: 'img/6.jpg', keywords: ['man', 'understand'] },
+    { id: 7, url: 'img/7.jpg', keywords: ['cartton', 'nerd'] },
+    { id: 8, url: 'img/8.jpg', keywords: ['man', 'magician'] },
+    { id: 9, url: 'img/9.jpg', keywords: ['boy', 'know'] },
+    { id: 10, url: 'img/10.jpg', keywords: ['man', 'suprise'] },
+    { id: 11, url: 'img/11.jpg', keywords: ['man', 'what'] },
+    { id: 12, url: 'img/12.jpg', keywords: ['man', 'glasses'] },
+    { id: 13, url: 'img/13.jpg', keywords: ['man', 'funny'] },
+    { id: 14, url: 'img/14.jpg', keywords: ['cartton', 'spongbob'] },
+    { id: 15, url: 'img/15.jpg', keywords: ['man', 'funny'] },
+    { id: 16, url: 'img/16.jpg', keywords: ['chuld', 'boy', 'background'] },
+    { id: 17, url: 'img/17.jpg', keywords: ['tramp', 'president'] },
+    { id: 18, url: 'img/18.png', keywords: ['child', 'cartton'] },
+    { id: 19, url: 'img/19.jpg', keywords: ['suprise'] },
+    { id: 20, url: 'img/20.jpg', keywords: ['cat', 'pets'] },
+    { id: 21, url: 'img/21.jpg', keywords: ['smoking'] },
+    { id: 22, url: 'img/22.jpg', keywords: ['so'] },
+    { id: 23, url: 'img/23.jpg', keywords: ['think'] },
+    { id: 24, url: 'img/24.jpg', keywords: ['background'] },
+    { id: 25, url: 'img/25.jpg', keywords: ['background'] },
+    { id: 26, url: 'img/27.jpg', keywords: ['girl'] },
+    { id: 27, url: 'img/28.jpg', keywords: ['dog', 'pets'] },
+    { id: 28, url: 'img/29.jpg', keywords: ['girl'] },
+    { id: 29, url: 'img/30.jpg', keywords: ['baby', 'girl'] },
+    { id: 30, url: 'img/31.jpg', keywords: ['girl'] },
+    { id: 31, url: 'img/32.jpg', keywords: ['girl'] },
+    { id: 32, url: 'img/33.jpg', keywords: ['girl', 'fat'] },
+    { id: 33, url: 'img/34.jpg', keywords: ['girl', 'fat'] },
+    { id: 34, url: 'img/35.jpg', keywords: ['girl', 'money'] },
+    { id: 35, url: 'img/36.jpg', keywords: ['nerd'] },
+    { id: 36, url: 'img/37.jpg', keywords: ['cartton'] }];
 
 var gMeme = {
     selectedImg: null,
@@ -43,8 +75,13 @@ function init() {
 function renderGallery(imgs) {
     var elGalleryContainer = document.querySelector('.gallery-container');
     elGalleryContainer.innerHTML = imgs.map(function(img) {
-        return `<div class="img-wrapper">
-                    <img onclick="saveImage(this)" src="${img.url}" />
+        // return `<div class="img-wrapper">
+        //             <img onclick="saveImage(this)" src="${img.url}" />
+        //         </div>`
+
+        return `<div onclick="saveImage(this)"class="hexagon" style="background-image: url(${img.url})">
+                    <div class="hexTop"></div>
+                    <div class="hexBottom"></div>
                 </div>`
 
     }).join('');
@@ -54,7 +91,7 @@ function renderTagBar() {
     var strHTML = ``;
     var wordsBar = getTagsBar();
     for (var key in wordsBar) {
-        strHTML += `<span style="font-size: ${(wordsBar[key] * 5 + 10)}px">${key}</span> </t> | `
+        strHTML += `<span class="tag" style="font-size: ${(wordsBar[key] * 5 + 10)}px" onclick="checkWords('${key}')">${key}</span> </t> | `
     }
 
     var elTagsBar = document.querySelector('.tags-bar');
@@ -62,8 +99,11 @@ function renderTagBar() {
 }
 
 function saveImage(el) {
-    currImg = '../' + el.getAttribute('src');
-    gMeme.selectedImg = currImg;
+    var img = el.style.backgroundImage;
+    var firstSym = img.indexOf('"');
+    var lastSym = img.lastIndexOf('"');
+    currImg = img.substr((firstSym + 1) , (lastSym - 5));
+    gMeme.selectedImg = '../' + currImg;
     openCanvas();
 }
 function saveUrl() {
@@ -102,7 +142,7 @@ function createWordsBar() {
     var wordsBar = [];
     gImgs.forEach(function (img) {
         img.keywords.forEach(function (keywords) {
-            wordsBar.push(keywords);
+            wordsBar.push(keywords.toLowerCase());
         });
     });
 
