@@ -62,7 +62,12 @@ function renderTagBar() {
 }
 
 function saveImage(el) {
-    currImg = el.getAttribute('src');
+    currImg = '../' + el.getAttribute('src');
+    openCanvas();
+}
+function saveUrl() {
+    var elInputUrl = document.querySelector('.url');
+    currImg = elInputUrl.value;
     openCanvas();
 }
 
@@ -73,6 +78,7 @@ function openCanvas() {
     var elMemeGenerator = document.querySelector('.meme-generator');
     elMemeGenerator.classList.toggle('open');
     editCanvas();
+    closeModal();
 }
 
 function editCanvas() {
@@ -81,7 +87,8 @@ function editCanvas() {
     elCanvas.width = window.innerWidth / 2;
     elCanvas.height = window.innerHeight / 2;
     var background = new Image();
-    background.src = '../' + currImg;
+
+    background.src = currImg;
 
     background.onload = function () {
         ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
