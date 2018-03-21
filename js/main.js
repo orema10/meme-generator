@@ -1,7 +1,6 @@
 'use strict';
 
 console.log('Hello');
-var nextIdCount = 1;
 var currImg;
 var ctx;
 var gImgs = [
@@ -42,15 +41,13 @@ function init() {
 }
 
 function renderGallery(imgs) {
-    var strHTML = ``;
-    imgs.forEach(function (img) {
-        strHTML += `<div class="img-wrapper">
-                        <img onclick="saveImage(this)" src="${img.url}" />
-                    </div>`
-    });
-
     var elGalleryContainer = document.querySelector('.gallery-container');
-    elGalleryContainer.innerHTML = strHTML;
+    elGalleryContainer.innerHTML = imgs.map(function(img) {
+        return `<div class="img-wrapper">
+                    <img onclick="saveImage(this)" src="${img.url}" />
+                </div>`
+
+    }).join('');
 }
 
 function renderTagBar() {
@@ -66,11 +63,13 @@ function renderTagBar() {
 
 function saveImage(el) {
     currImg = '../' + el.getAttribute('src');
+    gMeme.selectedImg = currImg;
     openCanvas();
 }
 function saveUrl() {
     var elInputUrl = document.querySelector('.url');
     currImg = elInputUrl.value;
+    gMeme.selectedImg = currImg;
     openCanvas();
 }
 
@@ -127,9 +126,9 @@ function addCanvasLine(line) {
     var testGenerate = {
         line: 'l like',
         size: 20,
-        align: 'right',
-        color: 'red',
-        font: 'Arial',
+        align: 'center',
+        color: 'green',
+        font: 'Impact',
     }
     gMeme.txts.push(testGenerate);
     printLineCanvas(line);
@@ -166,4 +165,9 @@ function printLineCanvas(line) {
 
 }
 
+// get the gMeme and print the canvas.
+
+function renderCanvas(){
+    
+}
 
