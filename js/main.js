@@ -10,26 +10,44 @@ var gImgs = [
     { id: 1, url: 'img/3.jpg', keywords: ['man'] },
     { id: 1, url: 'img/4.jpg', keywords: ['soccer', 'man'] }];
 
+var gMeme = {
+    selectedImg: null,
+    txts: [
+        {
+            line: 'left',
+            size: 20,
+            align: 'left',
+            color: 'red'
+        }
+        ,
+        {
+            line: 'right',
+            size: 20,
+            align: 'right',
+            color: 'blue'
+        }
+
+    ],
+
+}
+
 
 
 function init() {
     renderGallery(gImgs);
+    renderTagBar();
 }
 
 function renderGallery(imgs) {
-    var strHTML = `<div class="tags-bar"></div>`;
-    strHTML += `<div class="gallery-container">`;
-    imgs.forEach(function (img) {
+    var strHTML = ``;
+    imgs.forEach(function(img) {
         strHTML += `<div class="img-wrapper">
-                            <img onclick="saveImage(this)" src="${img.url}"/>
-                        </div>`
+                        <img onclick="saveImage(this)" src="${img.url}" />
+                    </div>`
     });
-    strHTML += `</div>`
 
-    var elGalleryContainer = document.querySelector('.gallery-items');
+    var elGalleryContainer = document.querySelector('.gallery-container');
     elGalleryContainer.innerHTML = strHTML;
-
-    renderTagBar();
 }
 
 function renderTagBar() {
@@ -43,53 +61,17 @@ function renderTagBar() {
     elTagsBar.innerHTML = strHTML;
 }
 
-function createImg(nextId, url, keywords) {
-    return {
-        id: nextId,
-        url: url,
-        keywords: keywords,
-    }
-}
-
-function createWordsBar() {
-   var wordsBar = [];
-   gImgs.forEach(function(img) {
-       img.keywords.forEach(function(keywords) {
-           wordsBar.push(keywords);
-       });
-   });
-
-   return wordsBar;
-}
-
-function getTagsBar() {
-    var wordsBar = createWordsBar();
-    return wordsBar.reduce(function(acc, key) {
-        if(!acc[key]) acc[key] = 1;
-        else acc[key] += 1;
-        return acc;
-    }, {});
-}
-
 function saveImage(el) {
     currImg = el.getAttribute('src');
     openCanvas();
 }
 
 function openCanvas() {
-    var elGalleryItem = document.querySelector('.gallery-container');
-    // elGalleryItem.style.transform = 'scale(0)';
-    elGalleryItem.style.display = 'none';
-    var elGalleryContainer = document.querySelector('.gallery-items');
-    elGalleryContainer.innerHTML = `
-    <section class="gallery-canvas">
-        <canvas class="canvas"></canvas>
+    var elGalleryItems = document.querySelector('.gallery-items');
+    elGalleryItems.style.display = 'none';
 
-        <a class="down-btn" onclick="startDown(this)" download="${currImg}">Download</a>
-
-    </section>
-    `;
-
+    var elMemeGenerator = document.querySelector('.meme-generator');
+    elMemeGenerator.classList.toggle('open');
     editCanvas();
 }
 
@@ -106,6 +88,23 @@ function editCanvas() {
     }
 }
 
-function startDown(elLink) {
-    elLink.src = '../' + currImg;
+
+function createWordsBar() {
+    var wordsBar = [];
+    gImgs.forEach(function (img) {
+        img.keywords.forEach(function (keywords) {
+            wordsBar.push(keywords);
+        });
+    });
+
+    return wordsBar;
+}
+
+function getTagsBar() {
+    var wordsBar = createWordsBar();
+    return wordsBar.reduce(function (acc, key) {
+        if (!acc[key]) acc[key] = 1;
+        else acc[key] += 1;
+        return acc;
+    }, {});
 }
