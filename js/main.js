@@ -10,6 +10,26 @@ var gImgs = [
     { id: 1, url: 'img/3.jpg', keywords: ['man'] },
     { id: 1, url: 'img/4.jpg', keywords: ['soccer'] }];
 
+var gMeme = {
+    selectedImg: null,
+    txts: [
+        {
+            line: 'left',
+            size: 20,
+            align: 'left',
+            color: 'red'
+        }
+        ,
+        {
+            line: 'right',
+            size: 20,
+            align: 'right',
+            color: 'blue'
+        }
+
+    ],
+
+}
 
 
 
@@ -18,7 +38,8 @@ function init() {
 }
 
 function renderGallery() {
-    var strHTML = `<div class="gallery-container">`;
+    // var strHTML = `<div class="gallery-container">`;
+    var strHTML = '';
     gImgs.forEach(function (img) {
         strHTML += `<div class="img-wrapper">
                             <img onclick="saveImage(this)" src="${img.url}"/>
@@ -26,7 +47,7 @@ function renderGallery() {
     });
     strHTML += `</div>`
 
-    var elGalleryContainer = document.querySelector('.gallery-items');
+    var elGalleryContainer = document.querySelector('.gallery-container');
     elGalleryContainer.innerHTML = strHTML;
 }
 
@@ -39,20 +60,20 @@ function createImg(nextId, url, keywords) {
 }
 
 function createWordsBar() {
-   var wordsBar = [];
-   gImgs.forEach(function(img) {
-       img.keywords.forEach(function(keywords) {
-           wordsBar.push(keywords);
-       });
-   });
+    var wordsBar = [];
+    gImgs.forEach(function (img) {
+        img.keywords.forEach(function (keywords) {
+            wordsBar.push(keywords);
+        });
+    });
 
-   return wordsBar;
+    return wordsBar;
 }
 
 function getTagsBar() {
     var wordsBar = createWordsBar();
-    return wordsBar.reduce(function(acc, key) {
-        if(!acc[key]) acc[key] = 1;
+    return wordsBar.reduce(function (acc, key) {
+        if (!acc[key]) acc[key] = 1;
         else acc[key] += 1;
         return acc;
     }, {});
@@ -92,6 +113,8 @@ function editCanvas() {
         ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
     }
 }
+
+
 
 // function startDown(elLink) {
 //     elLink.src = '../' + currImg;
