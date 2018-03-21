@@ -37,10 +37,22 @@ function createImg(nextId, url, keywords) {
     }
 }
 
-function getWordsBar() {
-    gImgs.reduce(function(acc, img) {
-        if(!acc[img]) acc[img] = 1;
-        else acc[img] += 1;
+function createWordsBar() {
+   var wordsBar = [];
+   gImgs.forEach(function(img) {
+       img.keywords.forEach(function(keywords) {
+           wordsBar.push(keywords);
+       });
+   });
+
+   return wordsBar;
+}
+
+function getTagsBar() {
+    var wordsBar = createWordsBar();
+    return wordsBar.reduce(function(acc, key) {
+        if(!acc[key]) acc[key] = 1;
+        else acc[key] += 1;
         return acc;
     }, {});
 }
