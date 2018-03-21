@@ -6,7 +6,7 @@ var ctx;
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['face', 'cartton'] },
     { id: 1, url: 'img/2.jpg', keywords: ['man'] },
-    { id: 1, url: 'img/3.jpg', keywords: ['man'] },
+    { id: 1, url: 'img/3.jpg', keywords: ['man','lklk'] },
     { id: 1, url: 'img/4.jpg', keywords: ['soccer', 'man'] }];
 
 var gMeme = {
