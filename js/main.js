@@ -5,20 +5,21 @@ var nextIdCount = 1;
 var currImg;
 
 var gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['face'] },
+    { id: 1, url: 'img/1.jpg', keywords: ['face', 'cartton'] },
     { id: 1, url: 'img/2.jpg', keywords: ['man'] },
     { id: 1, url: 'img/3.jpg', keywords: ['man'] },
-    { id: 1, url: 'img/4.jpg', keywords: ['soccer'] }];
+    { id: 1, url: 'img/4.jpg', keywords: ['soccer', 'man'] }];
 
 
 
 function init() {
-    renderGallery();
+    renderGallery(gImgs);
 }
 
-function renderGallery() {
-    var strHTML = `<div class="gallery-container">`;
-    gImgs.forEach(function (img) {
+function renderGallery(imgs) {
+    var strHTML = `<div class="tags-bar"></div>`;
+    strHTML += `<div class="gallery-container">`;
+    imgs.forEach(function (img) {
         strHTML += `<div class="img-wrapper">
                             <img onclick="saveImage(this)" src="${img.url}"/>
                         </div>`
@@ -27,6 +28,19 @@ function renderGallery() {
 
     var elGalleryContainer = document.querySelector('.gallery-items');
     elGalleryContainer.innerHTML = strHTML;
+
+    renderTagBar();
+}
+
+function renderTagBar() {
+    var strHTML = ``;
+    var wordsBar = getTagsBar();
+    for (var key in wordsBar) {
+        strHTML += `<span style="font-size: ${(wordsBar[key] * 5 + 10)}px">${key}</span> </t> | `
+    }
+
+    var elTagsBar = document.querySelector('.tags-bar');
+    elTagsBar.innerHTML = strHTML;
 }
 
 function createImg(nextId, url, keywords) {

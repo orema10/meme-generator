@@ -62,6 +62,7 @@ header {
     justify-content: center;
     align-items: center;
     margin: 25px 0;
+    flex-direction: column;
 }
 
 .gallery-container {
@@ -109,6 +110,15 @@ header {
     width: 30%;
     text-align: center;
     margin: 0 auto;
+}
+
+.tags-bar {
+    display: block;
+    padding: 30px;
+}
+
+.tags {
+    font-size: 6px;
 }
 
 .devs-team {
