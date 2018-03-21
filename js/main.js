@@ -122,7 +122,8 @@ function getTagsBar() {
 
 function addCanvasLine(line) {
 
-    // var line = document.getElementById('left')
+    var line = document.getElementById('side').value;
+    var font = document.getElementById('font').value;
 
     var testGenerate = {
         line: 'l like',
