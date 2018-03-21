@@ -5,10 +5,10 @@ var nextIdCount = 1;
 var currImg;
 
 var gImgs = [
-    { id: 1, url: 'img/1.jpg', keywords: ['happy'] },
-    { id: 1, url: 'img/2.jpg', keywords: ['happy'] },
-    { id: 1, url: 'img/3.jpg', keywords: ['happy'] },
-    { id: 1, url: 'img/4.jpg', keywords: ['happy'] }];
+    { id: 1, url: 'img/1.jpg', keywords: ['face'] },
+    { id: 1, url: 'img/2.jpg', keywords: ['man'] },
+    { id: 1, url: 'img/3.jpg', keywords: ['man'] },
+    { id: 1, url: 'img/4.jpg', keywords: ['soccer'] }];
 
 
 
@@ -18,12 +18,11 @@ function init() {
 
 function renderGallery() {
     var strHTML = `<div class="gallery-container">`;
-    gImgs.forEach(function(img) {
-            strHTML += `<div class="img-wrapper">
+    gImgs.forEach(function (img) {
+        strHTML += `<div class="img-wrapper">
                             <img onclick="saveImage(this)" src="${img.url}"/>
                         </div>`
     });
-
     strHTML += `</div>`
 
     var elGalleryContainer = document.querySelector('.gallery-items');
@@ -38,6 +37,14 @@ function createImg(nextId, url, keywords) {
     }
 }
 
+function getWordsBar() {
+    gImgs.reduce(function(acc, img) {
+        if(!acc[img]) acc[img] = 1;
+        else acc[img] += 1;
+        return acc;
+    }, {});
+}
+
 function saveImage(el) {
     currImg = el.getAttribute('src');
     openCanvas();
@@ -46,7 +53,7 @@ function saveImage(el) {
 function openCanvas() {
     var elGalleryItem = document.querySelector('.gallery-container');
     // elGalleryItem.style.transform = 'scale(0)';
-    elGalleryItem.style.display='none';
+    elGalleryItem.style.display = 'none';
     var elGalleryContainer = document.querySelector('.gallery-items');
     elGalleryContainer.innerHTML = `
     <section class="gallery-canvas">
@@ -68,11 +75,11 @@ function editCanvas() {
     var background = new Image();
     background.src = '../' + currImg;
 
-    background.onload = function() {
-        ctx.drawImage(background,0,0,elCanvas.width,elCanvas.height);
+    background.onload = function () {
+        ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
     }
 }
 
 function startDown(elLink) {
-    elLink.src = currImg;
+    elLink.src = '../' + currImg;
 }
