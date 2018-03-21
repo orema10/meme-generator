@@ -37,7 +37,7 @@
             <div class="tags-bar">
 
             </div>
-                
+
             <div class="gallery-container">
 
             </div>
@@ -45,8 +45,77 @@
         </section>
 
         <section class="meme-generator">
-            <canvas class="canvas"></canvas>
-            <a class="down-btn" onclick="startDown(this)">Download</a>
+            <div class="canvasWrapper">
+                <canvas class="canvas"></canvas>
+            </div>
+            <div class="actions">
+                <div class="line1">
+                    <input type="text" id="canvas-text1">
+                    <!-- <form>
+                                    <fieldset>
+                                      <legend>Please select your preferred contact method:</legend>
+                                      <div>
+                                        <input type="radio" id="left"
+                                         name="side" value="left" checked>
+                                        <label for="left">left</label>
+                                  
+                                        <input type="radio" id="center"
+                                         name="side" value="phone">
+                                        <label for="contactChoice2">center</label>
+                                  
+                                        <input type="radio" id="right"
+                                         name="side" value="mail">
+                                        <label for="right">right</label>
+                                      </div>
+                                      <div>
+                                        <button type="submit">Submit</button>
+                                      </div>
+                                    </fieldset> 
+                                  </form> -->
+                    <select id="side" onchange="changeTxtSide(this.value)">
+                        <option value="left">left</option>
+                        <option value="center">center</option>
+                        <option value="right">right</option>
+                    </select>
+                    <select id="font" onchange="changeFont(this.value)">
+                        <option value="font1">left</option>
+                        <option value="font2">center</option>
+                        <option value="font3">right</option>
+                    </select>
+
+                    <button class "" onclick="changeTxtDir()" id="left">left</button>
+                    <button class "" onclick="changeTxtDir()">center</button>
+                    <button class "" onclick="changeTxtDir()">right</button>
+                    <button class "" onclick="changeTxtFont()">+</button>
+                    <button class "" onclick="changeTxtFont()">-</button>
+                    <input type="color">
+                    <button class "" onclick="">text shadow</button>
+                    <button class "" onclick="">select font</button>
+                    <button class "" onclick="moveTxt('down')">down</button>
+                    <button class "" onclick="moveTxt('up')">up</button>
+                    <button class "" onclick="">remove</button>
+                    <button class="clear-btn add-line-btn" onclick="addCanvasLine(0)">Add-Line</button>
+                    <button class="clear-btn down-btn" onclick="startDown(this)">Save</button>
+                </div>
+                <!-- <div class="line2">
+                    <input type="text" id="canvas-text2">
+                    <button class "" onclick="changeTxtDir()" id="left">left</button>
+                    <button class "" onclick="changeTxtDir()" id="center">center</button>
+                    <button class "" onclick="changeTxtDir()" id="right">right</button>
+                    <button class "" onclick="changeTxtFont()">+</button>
+                    <button class "" onclick="changeTxtFont()">-</button>
+                    <button class "" onclick="">text color</button>
+                    <input type="color">
+                    <button class "" onclick="">text shadow</button>
+                    <button class "" onclick="">select font</button>
+                    <button class "" onclick="moveTxt('down')">down</button>
+                    <button class "" onclick="moveTxt('up')">up</button>
+                    <button class "" onclick="">remove</button>
+                    <button class="clear-btn add-line-btn" onclick="addCanvasLine(1)">Add-Line</button>
+                    <button class="clear-btn down-btn" onclick="startDown(this)">Save</button>
+
+                </div> -->
+            </div>
         </section>
 
 

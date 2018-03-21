@@ -3,7 +3,7 @@
 console.log('Hello');
 var nextIdCount = 1;
 var currImg;
-
+var ctx;
 var gImgs = [
     { id: 1, url: 'img/1.jpg', keywords: ['face', 'cartton'] },
     { id: 1, url: 'img/2.jpg', keywords: ['man'] },
@@ -13,26 +13,28 @@ var gImgs = [
 var gMeme = {
     selectedImg: null,
     txts: [
-        {
-            line: 'left',
-            size: 20,
-            align: 'left',
-            color: 'red'
-        }
-        ,
-        {
-            line: 'right',
-            size: 20,
-            align: 'right',
-            color: 'blue'
-        }
+        // {
+        //     align: 'left',
+        //     size: 20,
+        //     align: 'left',
+        //     color: 'red'
+        // }
+        // ,
+        // {
+        //     align: 'right',
+        //     size: 30,
+        //     align: 'right',
+        //     color: 'blue'
+        // }
 
     ],
 
 }
 
 
-
+function addCanvasLine() {
+    console.log('change Canvas Txt');
+}
 function init() {
     renderGallery(gImgs);
     renderTagBar();
@@ -40,7 +42,7 @@ function init() {
 
 function renderGallery(imgs) {
     var strHTML = ``;
-    imgs.forEach(function(img) {
+    imgs.forEach(function (img) {
         strHTML += `<div class="img-wrapper">
                         <img onclick="saveImage(this)" src="${img.url}" />
                     </div>`
@@ -72,12 +74,12 @@ function openCanvas() {
 
     var elMemeGenerator = document.querySelector('.meme-generator');
     elMemeGenerator.classList.toggle('open');
-    editCanvas();
+    setCanvasStart();
 }
 
-function editCanvas() {
+function setCanvasStart() {
     var elCanvas = document.querySelector('.canvas');
-    var ctx = elCanvas.getContext('2d');
+    ctx = elCanvas.getContext('2d');
     elCanvas.width = window.innerWidth / 2;
     elCanvas.height = window.innerHeight / 2;
     var background = new Image();
@@ -108,3 +110,52 @@ function getTagsBar() {
         return acc;
     }, {});
 }
+
+
+function addCanvasLine(line) {
+
+    // var line = document.getElementById('left')
+
+    var testGenerate = {
+        line: 'l like',
+        size: 20,
+        align: 'right',
+        color: 'red',
+        font: 'Arial',
+    }
+    gMeme.txts.push(testGenerate);
+    printLineCanvas(line);
+
+}
+
+function printLineCanvas(line) {
+    var width = ctx.canvas.width;
+    var height = ctx.canvas.height;
+    var meme = gMeme.txts[line];
+    var centerPos = width/2;
+    console.log(meme);
+    // debugger;
+    ctx.font = ''+meme.size+'px '+meme.font+' ';
+    ctx.fillStyle = meme.color;
+    if (meme.align === 'center') {
+        console.log('entered center');
+        ctx.textAlign = "center";
+        ctx.fillText(meme.line,centerPos ,height/5);
+    }
+    else if(meme.align === 'left') {
+        
+        ctx.textAlign = "start";
+        ctx.fillText(meme.line,width/10,height/5);
+        ctx.textAlign = "end";
+    }
+    else if(meme.align === 'right') {
+        
+        ctx.textAlign = "start";
+        ctx.fillText(meme.line,(width-width/10),height/5);
+        ctx.textAlign = "end";
+    }
+
+
+}
+
+
