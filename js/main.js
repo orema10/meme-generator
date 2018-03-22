@@ -175,12 +175,8 @@ function renderCanvas() {
   var background = new Image();
 
   background.src = currImg;
-  console.log(currImg.clientHeight);
-  // elCanvas.width = window.innerWidth / 2;
-  // elCanvas.height = window.innerHeight / 2;
-
-  elCanvas.width = currImg.width;
-  elCanvas.height = currImg.height;
+  elCanvas.width = window.innerWidth / 2;
+  elCanvas.height = window.innerHeight / 2;
   background.onload = function() {
     ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
     // console.count()
@@ -345,68 +341,3 @@ function downloadImage(el) {
   var dataURL = canvas.toDataURL('image/png');
   el.href = dataURL;
 }
-
-// <-----------------------------drgging functions----------------------->
-// function textHittest(x, y, textIndex) {
-//   var txt = gMeme.txts[textIndex];
-//   return (x >= txt.x && x <= txt.x + txt.width &&
-//           y >= txt.y - txt.size && y <= txt.y);
-// }
-
-// function handleMouseDown(e) {
-//   e.preventDefault();
-//   startX = parseInt(e.clientX - offsetX);
-//   startY = parseInt(e.clientY - offsetY);
-//   // Put your mousedown stuff here
-//   for (var i = 0; i < gMeme.txts.length; i++) {
-//     if (textHittest(startX, startY, i)) {
-//       console.log('clicked on txt match');
-//       selectedText = i;
-//     }
-//   }
-// }
-
-// function handleMouseUp(e) {
-//   e.preventDefault();
-//   selectedText = -1;
-// }
-
-// function handleMouseOut(e) {
-//   e.preventDefault();
-//   selectedText = -1;
-// }
-
-// function handleMouseMove(e) {
-//   if (selectedText < 0) return;
-
-//   e.preventDefault();
-//   var mouseX = parseInt(e.clientX - offsetX);
-//   var mouseY = parseInt(e.clientY - offsetY);
-
-//   // Put your mousemove stuff here
-//   var dx = mouseX - startX;
-//   var dy = mouseY - startY;
-//   startX = mouseX;
-//   startY = mouseY;
-
-//   var txt = gMeme.txts[selectedText];
-//   txt.hPos += dx;
-//   txt.vPos += dy;
-//   renderCanvas();
-// }
-
-// $('.canvas').mousedown(function(e) {
-//   handleMouseDown(e);
-// });
-
-// $('.canvas').mousemove(function(e) {
-//   handleMouseMove(e);
-// });
-
-// $('.canvas').mouseup(function(e) {
-//   handleMouseUp(e);
-// });
-
-// $('.canvas').mouseout(function(e) {
-//   handleMouseOut(e);
-// });
