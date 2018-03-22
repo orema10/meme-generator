@@ -33,7 +33,7 @@ var ctx = elCanvas.getContext('2d');
 
 // var gCanvasStates = { width: 0, height: 0, centerPos: 0 };
 var gImgs = [
-  { id: 1, url: 'img/1.jpg', keywords: ['face', 'cartton'] },
+  { id: 1, url: 'img/1.jpg', keywords: ['face', 'cartton','funny'] },
   { id: 2, url: 'img/2.jpg', keywords: ['Girl', 'money'] },
   { id: 3, url: 'img/3.jpg', keywords: ['cartton', 'table', 'angry'] },
   { id: 4, url: 'img/4.jpg', keywords: ['girl', 'baby'] },
