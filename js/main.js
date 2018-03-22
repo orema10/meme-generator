@@ -53,7 +53,7 @@ var gMeme = {
   selectedImg: undefined,
   txts: [
     {
-      input: 'sopouse to be top',
+      input: 'sopouse to be top111',
       size: 40,
       align: 'center',
       color: 'white',
