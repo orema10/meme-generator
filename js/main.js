@@ -1,17 +1,30 @@
 'use strict';
 
+console.log('Hello');
+
+//var for dragging
+
+// variables used to get mouse position on the canvas
 var $canvas = $('.canvas');
 
 var offsetX;
 var offsetY;
+
+// variables to save last mouse position
+// used to see how far the user dragged the mouse
+// and then move the text by that distance
 var startX;
 var startY;
-var selectedText = -1;
-var currImg;
 
+// this var will hold the index of the hit-selected text
+var selectedText = -1;
+
+//end of var for dragging
+var currImg;
 var elCanvas = document.querySelector('.canvas');
 var ctx = elCanvas.getContext('2d');
 
+// var gCanvasStates = { width: 0, height: 0, centerPos: 0 };
 var gImgs = [
   { id: 1, url: 'img/1.jpg', keywords: ['face', 'cartton'] },
   { id: 2, url: 'img/2.jpg', keywords: ['Girl', 'money'] },
@@ -105,24 +118,22 @@ function init() {
 
 function renderGallery(imgs) {
   var elGalleryContainer = document.querySelector('.gallery-container');
-  elGalleryContainer.innerHTML = imgs
-    .map(function (img) {
-      return `<div onclick="saveImage(this)" class="hexagon" style="background-image: url(${
-        img.url
-        })">
-                    <div class="hexTop"></div>
-                    <div class="hexBottom"></div>
+  elGalleryContainer.innerHTML = imgs.map(function (img) {
+    return `<div onclick='saveImage(this)'class='hexagon' style='background-image: url(${
+      img.url
+      })'>
+                    <div class='hexTop'></div>
+                    <div class='hexBottom'></div>
                 </div>`;
-    })
-    .join('');
+  }).join('');
 }
 
 function renderTagBar() {
   var strHTML = ``;
   var wordsBar = getTagsBar();
   for (var key in wordsBar) {
-    strHTML += `<span class="tag" style="font-size: ${wordsBar[key] * 5 + 10}px"
-                 onclick="checkWords('${key}')">${key}</span> </t> | `;
+    strHTML += `<span class='tag' style='font-size: ${wordsBar[key] * 5 + 10}px'
+                 onclick='checkWords('${key}')'>${key}</span> </t> | `;
   }
 
   var elTagsBar = document.querySelector('.tags-bar');
@@ -156,21 +167,39 @@ function openCanvas() {
 }
 
 function renderCanvas() {
+  var elCanvas = document.querySelector(".canvas");
+  ctx = elCanvas.getContext("2d");
   var canvasOffset = $canvas.offset();
   offsetX = canvasOffset.left;
   offsetY = canvasOffset.top;
+
+  elCanvas.width =  window.innerWidth / 2;
+  elCanvas.height =  window.innerHeight / 2;
+  // gCanvasStates.centerPos = gCanvasStates.width / 2;
+
   var background = new Image();
+
   background.src = currImg;
-  elCanvas.width = window.innerWidth / 2;
-  elCanvas.height = window.innerHeight / 2;
+  console.log(currImg.clientHeight);
+  // elCanvas.width = window.innerWidth / 2;
+  // elCanvas.height = window.innerHeight / 2;
+
   if (background.complete) {
     ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
     detailsRender();
   } else {
+
     background.onload = function () {
-      ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
-      detailsRender();
-    };
+
+      elCanvas.width = currImg.width;
+      elCanvas.height = currImg.height;
+      background.onload = function () {
+
+        ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
+        // console.count()
+        detailsRender();
+      };
+    }
   }
 }
 
@@ -288,31 +317,37 @@ function detailsRender() {
   var y;
 
   gMeme.txts.forEach(function (txt) {
+
     if (txt.shadow) {
       ctx.lineWidth = txt.lineWidth;
       ctx.strokeStyle = 'black';
     }
 
-    ctx.font = '' + txt.size + 'px ' + txt.font + ' ';
+    ctx.font = "" + txt.size + "px " + txt.font + " ";
     ctx.fillStyle = txt.color;
-    var vPos = txt.startVPos === 'up' ? height / 5 : height - height / 5;
+    var vPos = txt.startVPos === "up" ? height / 5 : height - height / 5;
 
-    if (txt.align === 'center') {
+    if (txt.align === "center") {
       x = centerPos + txt.hPos;
       y = vPos + txt.vPos;
 
-      ctx.textAlign = 'center';
+      ctx.textAlign = "center";
       if (txt.shadow) ctx.strokeText(txt.input, x, y);
       ctx.fillText(txt.input, x, y);
-    } else if (txt.align === 'left') {
+
+    } else if (txt.align === "left") {
+
       x = width / 5 + txt.hPos;
       y = vPos + txt.vPos;
       ctx.textAlign = 'start';
       if (txt.shadow) ctx.strokeText(txt.input, x, y);
       ctx.fillText(txt.input, x, y);
 
-      ctx.textAlign = 'end';
-    } else if (txt.align === 'right') {
+      ctx.textAlign = "end";
+
+    } else if (txt.align === "right") {
+
+
       x = width - width / 2.5 + txt.hPos;
       y = vPos + txt.vPos;
       ctx.textAlign = 'start';
@@ -320,6 +355,7 @@ function detailsRender() {
       ctx.fillText(txt.input, x, y);
       ctx.textAlign = 'end';
     }
+
 
     txt.width = ctx.measureText(txt.input).width;
     txt.x = x;
@@ -333,21 +369,19 @@ function downloadImage(el) {
   el.href = dataURL;
 }
 
+
+
 // <-----------------------------drgging functions----------------------->
 function textHittest(x, y, textIndex) {
+  // console.log('intiate test');
   var txt = gMeme.txts[textIndex];
-  // console.log('start x ', x, 'txt.x ', txt.x, 'txt.width', txt.width);
+  // console.log('testing ', txt)
+  console.log('start x ', x, 'txt.x ', txt.x, 'txt.width', txt.width);
   // console.log('start y ', y, 'txt.y ', txt.y, 'txt.size', txt.size);
-  var xWordStart = x + txt.width / 2;
+  var xWordStart = x + (txt.width / 2)
 
-  return (
-    xWordStart >= txt.x &&
-    x <= txt.x + txt.width &&
-    y >= txt.y - txt.size &&
-    y <= txt.y
-  );
+  return (xWordStart >= txt.x && x <= txt.x + txt.width && y >= txt.y - txt.size && y <= txt.y);
 }
-
 function handleMouseDown(e) {
   e.preventDefault();
   startX = parseInt(e.clientX - offsetX);
@@ -355,12 +389,15 @@ function handleMouseDown(e) {
   // Put your mousedown stuff here
   for (var i = 0; i < gMeme.txts.length; i++) {
     if (textHittest(startX, startY, i)) {
+      console.log('clicked on txt match');
       selectedText = i;
     }
   }
 }
 
+
 function handleMouseUp(e) {
+
   e.preventDefault();
   selectedText = -1;
 }
@@ -371,8 +408,9 @@ function handleMouseOut(e) {
 }
 
 function handleMouseMove(e) {
-  if (selectedText < 0) return;
-
+  if (selectedText < 0) {
+    return;
+  }
   e.preventDefault();
   var mouseX = parseInt(e.clientX - offsetX);
   var mouseY = parseInt(e.clientY - offsetY);
@@ -389,18 +427,17 @@ function handleMouseMove(e) {
   renderCanvas();
 }
 
-$('.canvas').mousedown(function (e) {
+$(".canvas").mousedown(function (e) {
+  console.log('mouse down');
   handleMouseDown(e);
 });
-
-$('.canvas').mousemove(function (e) {
+$(".canvas").mousemove(function (e) {
   handleMouseMove(e);
 });
-
-$('.canvas').mouseup(function (e) {
+$(".canvas").mouseup(function (e) {
   handleMouseUp(e);
 });
-
-$('.canvas').mouseout(function (e) {
+$(".canvas").mouseout(function (e) {
   handleMouseOut(e);
 });
+
