@@ -1,5 +1,6 @@
 'use strict';
 
+<<<<<<< HEAD
 console.log('Hello');
 
 //var for dragging
@@ -7,6 +8,8 @@ console.log('Hello');
 // variables used to get mouse position on the canvas
 var $canvas = $('.canvas');
 
+=======
+>>>>>>> 4c4e2bbdc88f0ae751d50e1ff7bb6ac503dd3988
 var offsetX;
 var offsetY;
 
@@ -19,8 +22,12 @@ var startY;
 // this var will hold the index of the hit-selected text
 var selectedText = -1;
 
+<<<<<<< HEAD
 //end of var for dragging
 var currImg;
+=======
+var $canvas = $('.canvas');
+>>>>>>> 4c4e2bbdc88f0ae751d50e1ff7bb6ac503dd3988
 var elCanvas = document.querySelector('.canvas');
 var ctx = elCanvas.getContext('2d');
 
@@ -64,7 +71,7 @@ var gImgs = [
 ];
 
 var gMeme = {
-  selectedImg: null,
+  selectedImg: undefined,
   txts: [
     {
       input: 'sopouse to be top',
@@ -386,12 +393,16 @@ function handleMouseDown(e) {
   e.preventDefault();
   startX = parseInt(e.clientX - offsetX);
   startY = parseInt(e.clientY - offsetY);
-  // Put your mousedown stuff here
+  
   for (var i = 0; i < gMeme.txts.length; i++) {
+<<<<<<< HEAD
     if (textHittest(startX, startY, i)) {
       console.log('clicked on txt match');
       selectedText = i;
     }
+=======
+    if (textHittest(startX, startY, i)) selectedText = i;
+>>>>>>> 4c4e2bbdc88f0ae751d50e1ff7bb6ac503dd3988
   }
 }
 
@@ -415,7 +426,6 @@ function handleMouseMove(e) {
   var mouseX = parseInt(e.clientX - offsetX);
   var mouseY = parseInt(e.clientY - offsetY);
 
-  // Put your mousemove stuff here
   var dx = mouseX - startX;
   var dy = mouseY - startY;
   startX = mouseX;
