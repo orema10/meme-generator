@@ -10,7 +10,6 @@ var $canvas = $(".canvas");
 var offsetX;
 var offsetY;
 
-
 // variables to save last mouse position
 // used to see how far the user dragged the mouse
 // and then move the text by that distance
@@ -175,6 +174,7 @@ function renderCanvas() {
   var canvasOffset = $canvas.offset();
   offsetX = canvasOffset.left;
   offsetY = canvasOffset.top;
+
   elCanvas.width = gCanvasStates.width = window.innerWidth / 2;
   elCanvas.height = gCanvasStates.height = window.innerHeight / 2;
   gCanvasStates.centerPos = gCanvasStates.width / 2;
@@ -182,10 +182,16 @@ function renderCanvas() {
 
   background.src = currImg;
 
+  if (background.complete) {
+    ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
+    detailsRender();
+  } else {
+
   background.onload = function () {
     ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
     detailsRender();
   };
+}
 }
 
 function createWordsBar() {
@@ -295,33 +301,32 @@ function detailsRender() {
 
   gMeme.txts.forEach(function (txt) {
 
-
-
+    
     if (txt.shadow) {
       ctx.lineWidth = txt.lineWidth;
       ctx.strokeStyle = 'black';
     }
-
     ctx.font = "" + txt.size + "px " + txt.font + " ";
     ctx.fillStyle = txt.color;
     var vPos = txt.startVPos === "up" ? height / 5 : height - height / 5;
-
+    
     if (txt.align === "center") {
       x = centerPos + txt.hPos;
       y = vPos + txt.vPos;
-
+      
       ctx.textAlign = "center";
       if (txt.shadow) ctx.strokeText(txt.input, x, y);
       ctx.fillText(txt.input, x, y);
-
+      
     } else if (txt.align === "left") {
       x = width / 5 + txt.hPos;
       y = vPos + txt.vPos;
       ctx.textAlign = "start";
       if (txt.shadow) ctx.strokeText(txt.input, x, y);
       ctx.fillText(txt.input, x, y);
+      
       ctx.textAlign = "end";
-
+      
     } else if (txt.align === "right") {
       x = width - width / 2.5 + txt.hPos;
       y = vPos + txt.vPos;
@@ -330,7 +335,8 @@ function detailsRender() {
       ctx.fillText(txt.input, x, y);
       ctx.textAlign = "end";
     }
-
+    
+    
     txt.width = ctx.measureText(txt.input).width;
     txt.x = x;
     txt.y = y;
@@ -353,8 +359,8 @@ function textHittest(x, y, textIndex) {
   // console.log('intiate test');
   var txt = gMeme.txts[textIndex];
   // console.log('testing ', txt)
-  // console.log('start x ', x, 'txt.x ', txt.x, 'txt.width', txt.width);
-  // console.log('start y ', y, 'txt.y ', txt.y, 'txt.size', txt.size);
+  console.log('start x ', x, 'txt.x ', txt.x, 'txt.width', txt.width);
+  console.log('start y ', y, 'txt.y ', txt.y, 'txt.size', txt.size);
 
   return (x >= txt.x && x <= txt.x + txt.width && y >= txt.y - txt.size && y <= txt.y);
 }
@@ -404,6 +410,7 @@ function handleMouseMove(e) {
 }
 
 $(".canvas").mousedown(function (e) {
+  console.log('mouse down');
   handleMouseDown(e);
 });
 $(".canvas").mousemove(function (e) {
