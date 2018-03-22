@@ -25,6 +25,10 @@ function checkWords(word) {
     renderGallery(imgToSerch);
 }
 
+function myFunction(x) {
+    x.classList.toggle("change");
+}
+
 function closeModal() {
     var elModal = document.querySelector('#openModal');
     elModal.style.display = 'none';

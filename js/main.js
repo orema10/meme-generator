@@ -38,9 +38,7 @@ var gImgs = [
   { id: 32, url: "img/33.jpg", keywords: ["girl", "fat"] },
   { id: 33, url: "img/34.jpg", keywords: ["girl", "fat"] },
   { id: 34, url: "img/35.jpg", keywords: ["girl", "money"] },
-  { id: 35, url: "img/36.jpg", keywords: ["nerd"] },
-  { id: 36, url: "img/37.jpg", keywords: ["cartton"] }
-];
+  { id: 35, url: "img/36.jpg", keywords: ["nerd"] }];
 
 var gMeme = {
   selectedImg: null,
