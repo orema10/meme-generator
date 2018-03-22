@@ -1,7 +1,5 @@
 'use strict';
 
-var $canvas = $('.canvas');
-
 var offsetX;
 var offsetY;
 var startX;
@@ -9,6 +7,7 @@ var startY;
 var selectedText = -1;
 var currImg;
 
+var $canvas = $('.canvas');
 var elCanvas = document.querySelector('.canvas');
 var ctx = elCanvas.getContext('2d');
 
@@ -51,7 +50,7 @@ var gImgs = [
 ];
 
 var gMeme = {
-  selectedImg: null,
+  selectedImg: undefined,
   txts: [
     {
       input: 'sopouse to be top',
@@ -352,11 +351,9 @@ function handleMouseDown(e) {
   e.preventDefault();
   startX = parseInt(e.clientX - offsetX);
   startY = parseInt(e.clientY - offsetY);
-  // Put your mousedown stuff here
+  
   for (var i = 0; i < gMeme.txts.length; i++) {
-    if (textHittest(startX, startY, i)) {
-      selectedText = i;
-    }
+    if (textHittest(startX, startY, i)) selectedText = i;
   }
 }
 
@@ -377,7 +374,6 @@ function handleMouseMove(e) {
   var mouseX = parseInt(e.clientX - offsetX);
   var mouseY = parseInt(e.clientY - offsetY);
 
-  // Put your mousemove stuff here
   var dx = mouseX - startX;
   var dy = mouseY - startY;
   startX = mouseX;
