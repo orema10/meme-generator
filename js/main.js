@@ -6,13 +6,12 @@ var startX;
 var startY;
 var selectedText = -1;
 var currImg;
-
 var $canvas = $('.canvas');
 var elCanvas = document.querySelector('.canvas');
 var ctx = elCanvas.getContext('2d');
 
 var gImgs = [
-  { id: 1, url: 'img/1.jpg', keywords: ['face', 'cartton','funny'] },
+  { id: 1, url: 'img/1.jpg', keywords: ['face', 'cartton', 'funny'] },
   { id: 2, url: 'img/2.jpg', keywords: ['Girl', 'money'] },
   { id: 3, url: 'img/3.jpg', keywords: ['cartton', 'table', 'angry'] },
   { id: 4, url: 'img/4.jpg', keywords: ['girl', 'baby'] },
@@ -104,16 +103,14 @@ function init() {
 
 function renderGallery(imgs) {
   var elGalleryContainer = document.querySelector('.gallery-container');
-  elGalleryContainer.innerHTML = imgs
-    .map(function (img) {
-      return `<div onclick="saveImage(this)" class="hexagon" style="background-image: url(${
-        img.url
-        })">
+  elGalleryContainer.innerHTML = imgs.map(function (img) {
+    return `<div onclick="saveImage(this)" class="hexagon" style="background-image: url(${
+      img.url
+      })">
                     <div class="hexTop"></div>
                     <div class="hexBottom"></div>
                 </div>`;
-    })
-    .join('');
+  }).join('');
 }
 
 function renderTagBar() {
@@ -158,16 +155,22 @@ function renderCanvas() {
   var canvasOffset = $canvas.offset();
   offsetX = canvasOffset.left;
   offsetY = canvasOffset.top;
-  var background = new Image();
-  background.src = currImg;
+
   elCanvas.width = window.innerWidth / 2;
   elCanvas.height = window.innerHeight / 2;
+  var background = new Image();
+
+  background.src = currImg;
+  console.log(currImg.clientHeight);
+
   if (background.complete) {
     ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
     detailsRender();
   } else {
     background.onload = function () {
+
       ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
+      // console.count()
       detailsRender();
     };
   }
@@ -272,12 +275,8 @@ function handleLine(line) {
   gMeme.txts[line].input = input;
   gMeme.txts[line].align = align;
   gMeme.txts[line].font = font;
-
-  // gMeme.txts.push(testGenerate);
   renderCanvas();
 }
-
-// get the gMeme and print the canvas.
 
 function detailsRender() {
   var width = ctx.canvas.width;
@@ -287,6 +286,7 @@ function detailsRender() {
   var y;
 
   gMeme.txts.forEach(function (txt) {
+
     if (txt.shadow) {
       ctx.lineWidth = txt.lineWidth;
       ctx.strokeStyle = 'black';
@@ -303,7 +303,9 @@ function detailsRender() {
       ctx.textAlign = 'center';
       if (txt.shadow) ctx.strokeText(txt.input, x, y);
       ctx.fillText(txt.input, x, y);
+
     } else if (txt.align === 'left') {
+
       x = width / 5 + txt.hPos;
       y = vPos + txt.vPos;
       ctx.textAlign = 'start';
@@ -311,7 +313,10 @@ function detailsRender() {
       ctx.fillText(txt.input, x, y);
 
       ctx.textAlign = 'end';
+
     } else if (txt.align === 'right') {
+
+
       x = width - width / 2.5 + txt.hPos;
       y = vPos + txt.vPos;
       ctx.textAlign = 'start';
@@ -319,6 +324,7 @@ function detailsRender() {
       ctx.fillText(txt.input, x, y);
       ctx.textAlign = 'end';
     }
+
 
     txt.width = ctx.measureText(txt.input).width;
     txt.x = x;
@@ -332,32 +338,35 @@ function downloadImage(el) {
   el.href = dataURL;
 }
 
+
+
 // <-----------------------------drgging functions----------------------->
 function textHittest(x, y, textIndex) {
   var txt = gMeme.txts[textIndex];
   // console.log('start x ', x, 'txt.x ', txt.x, 'txt.width', txt.width);
   // console.log('start y ', y, 'txt.y ', txt.y, 'txt.size', txt.size);
-  var xWordStart = x + txt.width / 2;
+  var xWordStart = x + (txt.width / 2)
 
-  return (
-    xWordStart >= txt.x &&
-    x <= txt.x + txt.width &&
-    y >= txt.y - txt.size &&
-    y <= txt.y
-  );
+  return (xWordStart >= txt.x && x <= txt.x + txt.width && y >= txt.y - txt.size && y <= txt.y);
 }
-
 function handleMouseDown(e) {
   e.preventDefault();
   startX = parseInt(e.clientX - offsetX);
   startY = parseInt(e.clientY - offsetY);
-  
+
   for (var i = 0; i < gMeme.txts.length; i++) {
+    if (textHittest(startX, startY, i)) {
+      console.log('clicked on txt match');
+      selectedText = i;
+    }
+
     if (textHittest(startX, startY, i)) selectedText = i;
   }
 }
 
+
 function handleMouseUp(e) {
+
   e.preventDefault();
   selectedText = -1;
 }
@@ -369,7 +378,6 @@ function handleMouseOut(e) {
 
 function handleMouseMove(e) {
   if (selectedText < 0) return;
-
   e.preventDefault();
   var mouseX = parseInt(e.clientX - offsetX);
   var mouseY = parseInt(e.clientY - offsetY);
@@ -386,6 +394,7 @@ function handleMouseMove(e) {
 }
 
 $('.canvas').mousedown(function (e) {
+  console.log('mouse down');
   handleMouseDown(e);
 });
 
@@ -400,3 +409,4 @@ $('.canvas').mouseup(function (e) {
 $('.canvas').mouseout(function (e) {
   handleMouseOut(e);
 });
+
