@@ -47,26 +47,43 @@ var gMeme = {
   txts: [
     {
       input: "sopouse to be top",
-      size: 27,
+      size: 40,
       align: "center",
-      color: "green",
-      font: "David",
+      color: "white",
+      font: "Impact",
       startVPos: "up",
       vPos: 0,
-      hPos: 0
+      hPos: 0,
+      shadow: true,
+      lineWidth:1
     },
     {
       input: "sopouse to be buttom",
-      size: 20,
-      align: "right",
-      color: "red",
+      size: 35,
+      align: "center",
+      color: "white",
       font: "Impact",
       startvPos: "down",
       vPos: 0,
-      hPos: 0
+      hPos: 0,
+      shadow: true,
+      lineWidth:1
     }
   ]
 };
+
+function resetTxt(idx){
+  var txt = gMeme.txts[idx];
+  txt.input = "";
+  txt.size = 35;
+  txt.color = "white";
+  txt.font = "Impact";
+  txt.vPos = 0;
+  txt.hPos = 0;
+  txt.shadow = true;
+  txt.lineWidth = 1;
+
+}
 
 function init() {
   renderGallery(gImgs);
@@ -76,10 +93,10 @@ function init() {
 function renderGallery(imgs) {
   var elGalleryContainer = document.querySelector(".gallery-container");
   elGalleryContainer.innerHTML = imgs
-    .map(function(img) {
+    .map(function (img) {
       return `<div onclick="saveImage(this)"class="hexagon" style="background-image: url(${
         img.url
-      })">
+        })">
                     <div class="hexTop"></div>
                     <div class="hexBottom"></div>
                 </div>`;
@@ -133,7 +150,7 @@ function renderCanvas() {
 
   background.src = currImg;
 
-  background.onload = function() {
+  background.onload = function () {
     ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
     detailsRender();
   };
@@ -141,8 +158,8 @@ function renderCanvas() {
 
 function createWordsBar() {
   var wordsBar = [];
-  gImgs.forEach(function(img) {
-    img.keywords.forEach(function(keywords) {
+  gImgs.forEach(function (img) {
+    img.keywords.forEach(function (keywords) {
       wordsBar.push(keywords.toLowerCase());
     });
   });
@@ -152,11 +169,19 @@ function createWordsBar() {
 
 function getTagsBar() {
   var wordsBar = createWordsBar();
-  return wordsBar.reduce(function(acc, key) {
+  return wordsBar.reduce(function (acc, key) {
     if (!acc[key]) acc[key] = 1;
     else acc[key] += 1;
     return acc;
   }, {});
+}
+
+// -----------bottons changers start ---------------
+function removeTxt(el) {
+  var idx = el.getAttribute("data-line");
+  resetTxt(idx);
+  document.querySelectorAll('#canvas-text')[idx].value = '';
+  renderCanvas();
 }
 function changeFontSize(el, diff) {
   var idx = el.getAttribute("data-line");
@@ -197,13 +222,24 @@ function changeInput(el) {
 function changeColor(el) {
   var idx = el.getAttribute("data-line");
   var val = el.value;
-  console.log(val);
+  
   gMeme.txts[idx].color = val;
   renderCanvas();
 }
-
+function changeShadow(el) {
+  var idx = el.getAttribute("data-line");
+  var shadowIdx = gMeme.txts[idx].shadow;
+  gMeme.txts[idx].shadow = shadowIdx ? false : true;
+  renderCanvas();
+}
+function changeLineWidth(el,diff) {
+  var idx = el.getAttribute("data-line");
+  gMeme.txts[idx].lineWidth += diff;
+  renderCanvas();
+}
+// -----------bottons changers end ---------------
 function handleLine(line) {
-  var input = document.getElementById("canvas-text1").value;
+  var input = document.getElementById("canvas-text").value;
   var align = document.getElementById("side").value;
   var font = document.getElementById("font").value;
 
@@ -222,21 +258,36 @@ function detailsRender() {
   var height = ctx.canvas.height;
   var centerPos = width / 2;
 
-  gMeme.txts.forEach(function(txt) {
+
+  gMeme.txts.forEach(function (txt) {
+
+    if (txt.shadow) {
+      ctx.lineWidth = txt.lineWidth;
+      ctx.strokeStyle = 'black';
+    }
+  
     ctx.font = "" + txt.size + "px " + txt.font + " ";
     ctx.fillStyle = txt.color;
     var vPos = txt.startVPos === "up" ? height / 5 : height - height / 5;
-    console.log("line", txt.input);
+    
     if (txt.align === "center") {
-      console.log("entered center");
+
+     
       ctx.textAlign = "center";
+      if (txt.shadow) ctx.strokeText(txt.input, centerPos + txt.hPos, vPos + txt.vPos);
       ctx.fillText(txt.input, centerPos + txt.hPos, vPos + txt.vPos);
+
     } else if (txt.align === "left") {
+
       ctx.textAlign = "start";
+      if (txt.shadow) ctx.strokeText(txt.input, width / 5 + txt.hPos, vPos + txt.vPos);
       ctx.fillText(txt.input, width / 5 + txt.hPos, vPos + txt.vPos);
       ctx.textAlign = "end";
+
     } else if (txt.align === "right") {
+
       ctx.textAlign = "start";
+      if (txt.shadow) ctx.strokeText(txt.input, width - width / 2.5 + txt.hPos, vPos + txt.vPos);
       ctx.fillText(txt.input, width - width / 2.5 + txt.hPos, vPos + txt.vPos);
       ctx.textAlign = "end";
     }

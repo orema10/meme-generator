@@ -56,56 +56,79 @@
             </div>
             <div class="actions">
                 <div class="line1">
-                    <input data-line="0" type="text" id="canvas-text1" oninput="changeInput(this)">
+                    <input data-line="0" type="text" id="canvas-text" oninput="changeInput(this)">
 
                     <select data-line="0" id="side" onchange="changeTxtSide(this)">
-                        <!-- <option disabled selected value > select an option  </option> -->
-                        <option value="left">left</option>
-                        <option value="center">center</option>
-                        <option value="right" selected>right</option>
+                        <option disabled selected value >Select side</option>
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
                     </select>
                     <select data-line="0" id="font" onchange="changeFont(this)">
+                            <option disabled selected value >Select Font</option>
                         <option value="Impact" >Impact</option>
                         <option value="Arial" >Arial</option>
                         <option value="David">David</option>
                     </select>
 
 
-                    <button data-line="0" class "" onclick="changeFontSize(this,2)">+</button>
-                    <button data-line="0" class "" onclick="changeFontSize(this,-2)">-</button>
+                    <button data-line="0" class="fa" onclick="changeFontSize(this,2)"></button>
+                    <button data-line="0" class="fa" onclick="changeFontSize(this,-2)"></button>
                     <input data-line="0" type="color" value="#ff0000" id="user-color" onchange="changeColor(this)">
-                    <label class="switch">
-                        <input type="checkbox">
+                    <label data-line="0" class="switch" onchange="changeShadow(this)" >
+                        <input type="checkbox" checked>
                         <span class="slider round"></span>
                     </label>
-                    <button data-line="0" class "" onclick="moveHorizantlly(this,-5)">left</button>
-                    <button data-line="0" class "" onclick="moveHorizantlly(this,5)">right</button>
-                    <button data-line="0" class "" onclick="moveVertaclly(this,-5)">up</button>
-                    <button data-line="0" class "" onclick="moveVertaclly(this,5)">down</button>
-                    <button data-line="0" class "" onclick="">remove</button>
-                    <button class "" onclick="">text shadow</button>
+                    <button data-line="0" class="fa" onclick="moveHorizantlly(this,-5)"></button>
+                    <button data-line="0" class="fa" onclick="moveHorizantlly(this,5)"></button>
+                    <button data-line="0" class="fa" onclick="moveVertaclly(this,-5)"></button>
+                    <button data-line="0" class="fa" onclick="moveVertaclly(this,5)"></button>
+                    <button data-line="0" class="fa" onclick="changeLineWidth(this,1)">up border</button>
+                    <button data-line="0" class="fa" onclick="changeLineWidth(this,-1)">down border</button>
+                    <button data-line="0" class="fa" onclick="removeTxt(this)"></button>
+                   
                     <button data-line="0" class="clear-btn add-line-btn" onclick="handleLine(0)">Add-Line</button>
+                    <!-- <button class="clear-btn down-btn" onclick="startDown(this)">Save</button> -->
+                   
+                </div>
+              <!-- <############LINE2###############>   -->
+              <div class="line2">
+                    <input data-line="1" type="text" id="canvas-text" oninput="changeInput(this)">
+
+                    <select data-line="1" id="side" onchange="changeTxtSide(this)">
+                        <option disabled selected value >Select side</option>
+                        <option value="left">Left</option>
+                        <option value="center">Center</option>
+                        <option value="right">Right</option>
+                    </select>
+                    <select data-line="1" id="font" onchange="changeFont(this)">
+                            <option disabled selected value >Select Font</option>
+                        <option value="Impact" >Impact</option>
+                        <option value="Arial" >Arial</option>
+                        <option value="David">David</option>
+                    </select>
+
+
+                    <button data-line="1" class="fa" onclick="changeFontSize(this,2)"></button>
+                    <button data-line="1" class="fa" onclick="changeFontSize(this,-2)"></button>
+                    <input data-line="1" type="color" value="#ff0000" id="user-color" onchange="changeColor(this)">
+                    <label data-line="1" class="switch" onchange="changeShadow(this)" >
+                        <input type="checkbox" checked>
+                        <span class="slider round"></span>
+                    </label>
+                    <button data-line="1" class="fa" onclick="moveHorizantlly(this,-5)"></button>
+                    <button data-line="1" class="fa" onclick="moveHorizantlly(this,5)"></button>
+                    <button data-line="1" class="fa" onclick="moveVertaclly(this,-5)"></button>
+                    <button data-line="1" class="fa" onclick="moveVertaclly(this,5)"></button>
+                    <button data-line="1" class="fa" onclick="changeLineWidth(this,1)">up border</button>
+                    <button data-line="1" class="fa" onclick="changeLineWidth(this,-1)">down border</button>
+                    <button data-line="1" class="fa" onclick="removeTxt(this)"></button>
+                   
+                    <button data-line="1" class="clear-btn add-line-btn" onclick="handleLine(0)">Add-Line</button>
                     <!-- <button class="clear-btn down-btn" onclick="startDown(this)">Save</button> -->
                     <a href="#" class="down-btn" id="btn-download" onclick="downloadImage(this)" download="My-Meme.png">Download</a>
                 </div>
-                <!-- <div class="line2">
-                    <input type="text" id="canvas-text2">
-                    <button class "" onclick="changeTxtDir()" id="left">left</button>
-                    <button class "" onclick="changeTxtDir()" id="center">center</button>
-                    <button class "" onclick="changeTxtDir()" id="right">right</button>
-                    <button class "" onclick="changeTxtFont()">+</button>
-                    <button class "" onclick="changeTxtFont()">-</button>
-                    <button class "" onclick="">text color</button>
-                    <input type="color">
-                    <button class "" onclick="">text shadow</button>
-                    <button class "" onclick="">select font</button>
-                    <button class "" onclick="moveTxt('down')">down</button>
-                    <button class "" onclick="moveTxt('up')">up</button>
-                    <button class "" onclick="">remove</button>
-                    <button class="clear-btn add-line-btn" onclick="addCanvasLine(1)">Add-Line</button>
-                    <button class="clear-btn down-btn" onclick="startDown(this)">Save</button>
-
-                </div> -->
+                
             </div>
         </section>
 
