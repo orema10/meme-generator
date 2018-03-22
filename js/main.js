@@ -1,8 +1,29 @@
 "use strict";
 
 console.log("Hello");
+
+//var for dragging
+
+// variables used to get mouse position on the canvas
+var $canvas = $(".canvas");
+
+var offsetX;
+var offsetY;
+
+
+// variables to save last mouse position
+// used to see how far the user dragged the mouse
+// and then move the text by that distance
+var startX;
+var startY;
+
+// this var will hold the index of the hit-selected text
+var selectedText = -1;
+
+//end of var for dragging
 var currImg;
 var ctx;
+var gCanvasStates = { width: 0, height: 0, centerPos: 0 };
 var gImgs = [
   { id: 1, url: "img/1.jpg", keywords: ["face", "cartton"] },
   { id: 2, url: "img/2.jpg", keywords: ["Girl", "money"] },
@@ -52,8 +73,11 @@ var gMeme = {
       startVPos: "up",
       vPos: 0,
       hPos: 0,
+      x: 0,
+      y: 0,
       shadow: true,
-      lineWidth:1
+      lineWidth: 1,
+      width: 0,
     },
     {
       input: "sopouse to be buttom",
@@ -64,13 +88,16 @@ var gMeme = {
       startvPos: "down",
       vPos: 0,
       hPos: 0,
+      x: 0,
+      y: 0,
       shadow: true,
-      lineWidth:1
+      lineWidth: 1,
+      width: 0,
     }
   ]
 };
 
-function resetTxt(idx){
+function resetTxt(idx) {
   var txt = gMeme.txts[idx];
   txt.input = "";
   txt.size = 35;
@@ -79,7 +106,8 @@ function resetTxt(idx){
   txt.vPos = 0;
   txt.hPos = 0;
   txt.shadow = true;
-  txt.lineWidth = 1;
+  txt.width = 0,
+    txt.lineWidth = 1;
 
 }
 
@@ -142,8 +170,12 @@ function openCanvas() {
 function renderCanvas() {
   var elCanvas = document.querySelector(".canvas");
   ctx = elCanvas.getContext("2d");
-  elCanvas.width = window.innerWidth / 2;
-  elCanvas.height = window.innerHeight / 2;
+  var canvasOffset = $canvas.offset();
+  offsetX = canvasOffset.left;
+  offsetY = canvasOffset.top;
+  elCanvas.width = gCanvasStates.width = window.innerWidth / 2;
+  elCanvas.height = gCanvasStates.height = window.innerHeight / 2;
+  gCanvasStates.centerPos = gCanvasStates.width / 2;
   var background = new Image();
 
   background.src = currImg;
@@ -220,7 +252,7 @@ function changeInput(el) {
 function changeColor(el) {
   var idx = el.getAttribute("data-line");
   var val = el.value;
-  
+
   gMeme.txts[idx].color = val;
   renderCanvas();
 }
@@ -230,7 +262,7 @@ function changeShadow(el) {
   gMeme.txts[idx].shadow = shadowIdx ? false : true;
   renderCanvas();
 }
-function changeLineWidth(el,diff) {
+function changeLineWidth(el, diff) {
   var idx = el.getAttribute("data-line");
   gMeme.txts[idx].lineWidth += diff;
   renderCanvas();
@@ -255,40 +287,51 @@ function detailsRender() {
   var width = ctx.canvas.width;
   var height = ctx.canvas.height;
   var centerPos = width / 2;
+  var x;
+  var y;
 
 
   gMeme.txts.forEach(function (txt) {
+
+
 
     if (txt.shadow) {
       ctx.lineWidth = txt.lineWidth;
       ctx.strokeStyle = 'black';
     }
-  
+
     ctx.font = "" + txt.size + "px " + txt.font + " ";
     ctx.fillStyle = txt.color;
     var vPos = txt.startVPos === "up" ? height / 5 : height - height / 5;
-    
-    if (txt.align === "center") {
 
-     
+    if (txt.align === "center") {
+      x = centerPos + txt.hPos;
+      y = vPos + txt.vPos;
+
       ctx.textAlign = "center";
-      if (txt.shadow) ctx.strokeText(txt.input, centerPos + txt.hPos, vPos + txt.vPos);
-      ctx.fillText(txt.input, centerPos + txt.hPos, vPos + txt.vPos);
+      if (txt.shadow) ctx.strokeText(txt.input, x, y);
+      ctx.fillText(txt.input, x, y);
 
     } else if (txt.align === "left") {
-
+      x = width / 5 + txt.hPos;
+      y = vPos + txt.vPos;
       ctx.textAlign = "start";
-      if (txt.shadow) ctx.strokeText(txt.input, width / 5 + txt.hPos, vPos + txt.vPos);
-      ctx.fillText(txt.input, width / 5 + txt.hPos, vPos + txt.vPos);
+      if (txt.shadow) ctx.strokeText(txt.input, x, y);
+      ctx.fillText(txt.input, x, y);
       ctx.textAlign = "end";
 
     } else if (txt.align === "right") {
-
+      x = width - width / 2.5 + txt.hPos;
+      y = vPos + txt.vPos;
       ctx.textAlign = "start";
-      if (txt.shadow) ctx.strokeText(txt.input, width - width / 2.5 + txt.hPos, vPos + txt.vPos);
-      ctx.fillText(txt.input, width - width / 2.5 + txt.hPos, vPos + txt.vPos);
+      if (txt.shadow) ctx.strokeText(txt.input, x, y);
+      ctx.fillText(txt.input, x, y);
       ctx.textAlign = "end";
     }
+
+    txt.width = ctx.measureText(txt.input).width;
+    txt.x = x;
+    txt.y = y;
   });
 }
 
@@ -298,3 +341,75 @@ function downloadImage(el) {
   var dataURL = canvas.toDataURL('image/png');
   el.href = dataURL;
 }
+
+
+
+
+
+// <-----------------------------drgging functions----------------------->
+function textHittest(x, y, textIndex) {
+  // console.log('intiate test');
+  var txt = gMeme.txts[textIndex];
+  // console.log('testing ', txt)
+  // console.log('start x ', x, 'txt.x ', txt.x, 'txt.width', txt.width);
+  // console.log('start y ', y, 'txt.y ', txt.y, 'txt.size', txt.size);
+
+  return (x >= txt.x && x <= txt.x + txt.width && y >= txt.y - txt.size && y <= txt.y);
+}
+function handleMouseDown(e) {
+  e.preventDefault();
+  startX = parseInt(e.clientX - offsetX);
+  startY = parseInt(e.clientY - offsetY);
+  // Put your mousedown stuff here
+  for (var i = 0; i < gMeme.txts.length; i++) {
+    if (textHittest(startX, startY, i)) {
+      console.log('clicked on txt match');
+      selectedText = i;
+    }
+  }
+}
+
+
+function handleMouseUp(e) {
+  
+  e.preventDefault();
+  selectedText = -1;
+}
+
+function handleMouseOut(e) {
+  e.preventDefault();
+  selectedText = -1;
+}
+
+function handleMouseMove(e) {
+  if (selectedText < 0) {
+    return;
+  }
+  e.preventDefault();
+  var mouseX = parseInt(e.clientX - offsetX);
+  var mouseY = parseInt(e.clientY - offsetY);
+
+  // Put your mousemove stuff here
+  var dx = mouseX - startX;
+  var dy = mouseY - startY;
+  startX = mouseX;
+  startY = mouseY;
+
+  var txt = gMeme.txts[selectedText];
+  txt.hPos += dx;
+  txt.vPos += dy;
+  renderCanvas();
+}
+
+$(".canvas").mousedown(function (e) {
+  handleMouseDown(e);
+});
+$(".canvas").mousemove(function (e) {
+  handleMouseMove(e);
+});
+$(".canvas").mouseup(function (e) {
+  handleMouseUp(e);
+});
+$(".canvas").mouseout(function (e) {
+  handleMouseOut(e);
+});
