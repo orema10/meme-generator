@@ -360,9 +360,10 @@ function textHittest(x, y, textIndex) {
   var txt = gMeme.txts[textIndex];
   // console.log('testing ', txt)
   console.log('start x ', x, 'txt.x ', txt.x, 'txt.width', txt.width);
-  console.log('start y ', y, 'txt.y ', txt.y, 'txt.size', txt.size);
+  // console.log('start y ', y, 'txt.y ', txt.y, 'txt.size', txt.size);
+  var xWordStart = x + (txt.width/2)
 
-  return (x >= txt.x && x <= txt.x + txt.width && y >= txt.y - txt.size && y <= txt.y);
+  return (xWordStart  >= txt.x && x <= txt.x + txt.width && y >= txt.y - txt.size && y <= txt.y);
 }
 function handleMouseDown(e) {
   e.preventDefault();
