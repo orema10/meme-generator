@@ -353,7 +353,6 @@ function downloadImage(el) {
 
 
 
-
 // <-----------------------------drgging functions----------------------->
 function textHittest(x, y, textIndex) {
   // console.log('intiate test');
