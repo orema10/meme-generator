@@ -52,7 +52,7 @@ var gMeme = {
   selectedImg: undefined,
   txts: [
     {
-      input: 'sopouse to be top111',
+      input: 'top',
       size: 40,
       align: 'center',
       color: 'white',
@@ -63,11 +63,11 @@ var gMeme = {
       x: 0,
       y: 0,
       shadow: true,
-      lineWidth: 1,
+      lineWidth: 3,
       width: 0
     },
     {
-      input: 'sopouse to be buttom',
+      input: 'buttom',
       size: 35,
       align: 'center',
       color: 'white',
@@ -78,7 +78,7 @@ var gMeme = {
       x: 0,
       y: 0,
       shadow: true,
-      lineWidth: 1,
+      lineWidth: 3,
       width: 0
     }
   ]
@@ -86,6 +86,7 @@ var gMeme = {
 
 function resetTxt(idx) {
   var txt = gMeme.txts[idx];
+
   txt.input = '';
   txt.size = 35;
   txt.color = 'white';
@@ -93,7 +94,8 @@ function resetTxt(idx) {
   txt.vPos = 0;
   txt.hPos = 0;
   txt.shadow = true;
-  (txt.width = 0), (txt.lineWidth = 1);
+  txt.width = 0,
+    txt.lineWidth = 3
 }
 
 function init() {
@@ -161,7 +163,7 @@ function renderCanvas() {
   var background = new Image();
 
   background.src = currImg;
-  console.log(currImg.clientHeight);
+  // console.log(currImg.clientHeight);
 
   if (background.complete) {
     ctx.drawImage(background, 0, 0, elCanvas.width, elCanvas.height);
@@ -213,6 +215,16 @@ function changeFontSize(el, diff) {
 function changeTxtSide(el) {
   var idx = el.getAttribute('data-line');
   var val = el.value;
+  // debugger;
+  var alignButtons = document.querySelectorAll('.side');
+  for (var i = 0; i < alignButtons.length; i++) {
+    
+    var line = alignButtons[i].getAttribute('data-line');
+    if(line === idx) {
+      alignButtons[i].classList.remove('button-clicked');
+    }
+  }
+  el.classList.add('button-clicked');
   gMeme.txts[idx].align = val;
   gMeme.txts[idx].hPos = 0;
   renderCanvas();
@@ -232,6 +244,7 @@ function moveVertaclly(el, diff) {
 }
 
 function moveHorizantlly(el, diff) {
+
   var idx = el.getAttribute('data-line');
   gMeme.txts[idx].hPos += diff;
 
@@ -254,6 +267,7 @@ function changeColor(el) {
 }
 
 function changeShadow(el) {
+  el.classList.toggle('button-clicked');
   var idx = el.getAttribute('data-line');
   var shadowIdx = gMeme.txts[idx].shadow;
   gMeme.txts[idx].shadow = shadowIdx ? false : true;
@@ -267,6 +281,7 @@ function changeLineWidth(el, diff) {
 }
 
 // -----------bottons changers end ---------------
+
 function handleLine(line) {
   var input = document.getElementById('canvas-text').value;
   var align = document.getElementById('side').value;
@@ -305,9 +320,9 @@ function detailsRender() {
       ctx.fillText(txt.input, x, y);
 
     } else if (txt.align === 'left') {
-
-      x = width / 5 + txt.hPos;
+      x = width / 8 + txt.hPos;
       y = vPos + txt.vPos;
+
       ctx.textAlign = 'start';
       if (txt.shadow) ctx.strokeText(txt.input, x, y);
       ctx.fillText(txt.input, x, y);
@@ -315,16 +330,14 @@ function detailsRender() {
       ctx.textAlign = 'end';
 
     } else if (txt.align === 'right') {
-
-
-      x = width - width / 2.5 + txt.hPos;
+      x = width - width / 5 + txt.hPos;
       y = vPos + txt.vPos;
+
       ctx.textAlign = 'start';
       if (txt.shadow) ctx.strokeText(txt.input, x, y);
       ctx.fillText(txt.input, x, y);
       ctx.textAlign = 'end';
     }
-
 
     txt.width = ctx.measureText(txt.input).width;
     txt.x = x;

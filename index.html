@@ -13,19 +13,19 @@
     <header>
         <ul class="main-menu clean-list">
             <li>
-                <a href="">portfolio</a>
+                <a href="">Gallery</a>
             </li>
             <li>
-                <a href="#about">about</a>
+                <a href="#about">About</a>
             </li>
             <li>
                 <img src="img/logo.png">
             </li>
             <li>
-                <a href="">blog</a>
+                <a href="">Blog</a>
             </li>
             <li>
-                <a href="#getintouch">get in touch</a>
+                <a href="#getintouch">Get In Touch</a>
             </li>
         </ul>
     </header>
@@ -33,9 +33,9 @@
     <main>
 
         <section class="gallery-items">
-            <div class="search-box">
-                <span>Search: </span>
-                <input type="search" oninput="runSearch(this)" />
+            <div class="search-box-wrapper">
+                <span>Search </span>
+                <input type="search" class="search-box"oninput="runSearch(this)" />
             </div>
             <div class="tags-bar"></div>
 
@@ -55,99 +55,102 @@
                 <canvas class="canvas"></canvas>
             </div>
             <div class="actions">
-                <div class="line1">
-                    <input data-line="0" type="text" id="canvas-text" oninput="changeInput(this)">
+                <a class="meme-title">Meme Generator</a>
+                <div class="buttons-wrapper line1">
+                    <input class="line-input" data-line="0" type="text" id="canvas-text" value="top" oninput="changeInput(this)">
 
-                    <select data-line="0" id="side" onchange="changeTxtSide(this)">
-                        <option disabled selected value >Select side</option>
-                        <option value="left">Left</option>
-                        <option value="center">Center</option>
-                        <option value="right">Right</option>
-                    </select>
+                    
                     <select data-line="0" id="font" onchange="changeFont(this)">
-                            <option disabled selected value >Select Font</option>
-                        <option value="Impact" >Impact</option>
-                        <option value="Arial" >Arial</option>
+                        <option disabled selected value>Select Font</option>
+                        <option value="Impact">Impact</option>
+                        <option value="Arial">Arial</option>
                         <option value="David">David</option>
                     </select>
-
-
+                    <button data-line="0" value="left" class="fa side" onclick="changeTxtSide(this)"></button>
+                    <button data-line="0" value="center" class="fa side button-clicked" onclick="changeTxtSide(this)"></button>
+                    <button data-line="0" value="right" class="fa side" onclick="changeTxtSide(this)"></button>
                     <button data-line="0" class="fa" onclick="changeFontSize(this,2)"></button>
                     <button data-line="0" class="fa" onclick="changeFontSize(this,-2)"></button>
                     <input data-line="0" type="color" value="#ff0000" id="user-color" onchange="changeColor(this)">
-                    <label data-line="0" class="switch" onchange="changeShadow(this)" >
+                    <!-- <label data-line="0" class="switch" onchange="changeShadow(this)">
                         <input type="checkbox" checked>
                         <span class="slider round"></span>
-                    </label>
+                    </label> -->
+                    <button data-line="0" class="fa set-border button-clicked" onclick="changeShadow(this)"></button>
+                    
                     <button data-line="0" class="fa" onclick="moveHorizantlly(this,-5)"></button>
                     <button data-line="0" class="fa" onclick="moveHorizantlly(this,5)"></button>
                     <button data-line="0" class="fa" onclick="moveVertaclly(this,-5)"></button>
                     <button data-line="0" class="fa" onclick="moveVertaclly(this,5)"></button>
-                    <button data-line="0" class="fa" onclick="changeLineWidth(this,1)">up border</button>
-                    <button data-line="0" class="fa" onclick="changeLineWidth(this,-1)">down border</button>
+                    <button data-line="0" class="fa set-border" onclick="changeLineWidth(this,1)"> </button>
+                    <button data-line="0" class="fa set-border" onclick="changeLineWidth(this,-1)"> </button>
                     <button data-line="0" class="fa" onclick="removeTxt(this)"></button>
-                   
-                    <button data-line="0" class="clear-btn add-line-btn" onclick="handleLine(0)">Add-Line</button>
-                    <!-- <button class="clear-btn down-btn" onclick="startDown(this)">Save</button> -->
-                   
-                </div>
-              <!-- <############LINE2###############>   -->
-              <div class="line2">
-                    <input data-line="1" type="text" id="canvas-text" oninput="changeInput(this)">
 
-                    <select data-line="1" id="side" onchange="changeTxtSide(this)">
-                        <option disabled selected value >Select side</option>
+                    <!-- <button data-line="0" class="clear-btn add-line-btn" onclick="handleLine(0)">Add-Line</button> -->
+                    <!-- <button class="clear-btn down-btn" onclick="startDown(this)">Save</button> -->
+
+                </div>
+                <!-- <############LINE2###############>   -->
+                <div class="line2">
+                    <input class="buttons-wrapper line-input" data-line="1" type="text" id="canvas-text" value="buttom" oninput="changeInput(this)">
+
+                    <!-- <select data-line="1" id="side" onchange="changeTxtSide(this)">
+                        <option disabled selected value>Select side</option>
                         <option value="left">Left</option>
                         <option value="center">Center</option>
                         <option value="right">Right</option>
-                    </select>
+                    </select> -->
                     <select data-line="1" id="font" onchange="changeFont(this)">
-                            <option disabled selected value >Select Font</option>
-                        <option value="Impact" >Impact</option>
-                        <option value="Arial" >Arial</option>
+                        <option disabled selected value>Select Font</option>
+                        <option value="Impact">Impact</option>
+                        <option value="Arial">Arial</option>
                         <option value="David">David</option>
                     </select>
 
 
+                    <button data-line="1" value="left" class="fa side" onclick="changeTxtSide(this)"></button>
+                    <button data-line="1" value="center" class="fa side button-clicked" onclick="changeTxtSide(this)"></button>
+                    <button data-line="1" value="right" class="fa side" onclick="changeTxtSide(this)"></button>
+
                     <button data-line="1" class="fa" onclick="changeFontSize(this,2)"></button>
                     <button data-line="1" class="fa" onclick="changeFontSize(this,-2)"></button>
                     <input data-line="1" type="color" value="#ff0000" id="user-color" onchange="changeColor(this)">
-                    <label data-line="1" class="switch" onchange="changeShadow(this)" >
-                        <input type="checkbox" checked>
-                        <span class="slider round"></span>
-                    </label>
+                    
+                    <button data-line="1" class="fa set-border button-clicked" onclick="changeShadow(this)"></button>
                     <button data-line="1" class="fa" onclick="moveHorizantlly(this,-5)"></button>
                     <button data-line="1" class="fa" onclick="moveHorizantlly(this,5)"></button>
                     <button data-line="1" class="fa" onclick="moveVertaclly(this,-5)"></button>
                     <button data-line="1" class="fa" onclick="moveVertaclly(this,5)"></button>
-                    <button data-line="1" class="fa" onclick="changeLineWidth(this,1)">up border</button>
-                    <button data-line="1" class="fa" onclick="changeLineWidth(this,-1)">down border</button>
+                    <button data-line="1" class="fa set-border" onclick="changeLineWidth(this,1)"> </button>
+                    <button data-line="1" class="fa set-border" onclick="changeLineWidth(this,-1)"> </button>
                     <button data-line="1" class="fa" onclick="removeTxt(this)"></button>
-                   
-                    <button data-line="1" class="clear-btn add-line-btn" onclick="handleLine(0)">Add-Line</button>
+
+                    <!-- <button data-line="1" class="clear-btn add-line-btn" onclick="handleLine(0)">Add-Line</button> -->
                     <!-- <button class="clear-btn down-btn" onclick="startDown(this)">Save</button> -->
+                </div>
+                <div class="download-wrapper">
                     <a href="#" class="down-btn" id="btn-download" onclick="downloadImage(this)" download="My-Meme.png">Download</a>
                 </div>
-                
             </div>
         </section>
 
 
         <section class="devs-team" id="about">
 
-            <nav class="personal tamier">
+            <nav class="personal tamir">
                 <img class="pers-img" src="img/2.jpg" />
-                <h1>Tamier blabla</h1>
-                <p style="margin: 20px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis excepturi inventore, recusandae facere aspernatur quos laborum eveniet tempora illo natus saepe nostrum, omnis repellendus consequatur molestias consequuntur veniam! Deserunt, unde.</p>
-                <p style="margin: 20px">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus praesentium nulla, facilis velit, quibusdam optio laboriosam totam in, veritatis blanditiis quod! Ea delectus nisi consequuntur quisquam vel quaerat distinctio eos.</p>
+                <h1>Tamir Dalal</h1>
+                <p style="margin: 20px">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nobis excepturi inventore, recusandae facere aspernatur
+                    quos laborum eveniet tempora illo natus saepe nostrum.</p>
+                <p style="margin: 20px">Lorem, ipsum dolor sit amet consectetur adipisicing elit. P.</p>
             </nav>
 
             <nav class="personal orel">
                 <img class="pers-img" src="img/orel.jpg" />
                 <h1>Orel Shternfeld</h1>
                 <p style="margin: 20px">My name is orel, i am a junior developer, i am 21 years old and i living in ramle.</p>
-                <p style="margin: 20px">I have a passion to write code and programs from young age. I am a self-learner and excited to learn new things all the time. 
-                        Beside that, I am a cool and funny guy! </p>
+                <p style="margin: 20px">I have a passion to write code and programs from young age. I am a self-learner and excited to learn new
+                    things all the time. Beside that, I am a cool and funny guy! </p>
             </nav>
 
         </section>
@@ -159,7 +162,7 @@
                 <p style="margin-bottom: 15px;">In order to get in touch use the contact form below:</p>
                 <input type="text" placeholder="Name (Required)" required />
                 <input type="mail" placeholder="Email (Required)" required />
-                <input type"text" placeholder="Subject" />
+                <input type "text" placeholder="Subject" />
                 <textarea type="text" placeholder="Write your message here..."></textarea>
                 <button class="send-mail">SEND</button>
             </div>
@@ -182,28 +185,6 @@
     <script src="js/main.js"></script>
     <script src="js/gallery.js"></script>
 
-    <!-- for later -->
-    <!-- <form>
-                                    <fieldset>
-                                      <legend>Please select your preferred contact method:</legend>
-                                      <div>
-                                        <input type="radio" id="left"
-                                         name="side" value="left" checked>
-                                        <label for="left">left</label>
-                                  
-                                        <input type="radio" id="center"
-                                         name="side" value="phone">
-                                        <label for="contactChoice2">center</label>
-                                  
-                                        <input type="radio" id="right"
-                                         name="side" value="mail">
-                                        <label for="right">right</label>
-                                      </div>
-                                      <div>
-                                        <button type="submit">Submit</button>
-                                      </div>
-                                    </fieldset> 
-                                  </form> -->
 </body>
 
 
